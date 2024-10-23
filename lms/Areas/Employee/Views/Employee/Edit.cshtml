@@ -1,0 +1,129 @@
+﻿@model EmployeeModel
+
+@{
+	ViewData["Title"] = "Edit Employee";
+}
+
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-lg-12">
+			<a asp-action="index" asp-controller="employee" asp-area="employee" class="btn btn-default btn-success" style="float:right; position:relative;">Employees List</a>
+			<h2 class="st_title"><i class="uil uil-analysis"></i> Create New Employee</h2>
+		</div>
+	</div>
+
+	<form method="post" asp-action="edit" asp-controller="Employee" asp-area="Employee" >
+		<input type="hidden" asp-for="EmployeeId" />
+		<div class="row">
+			<div class="col-12 ">
+				<div class="">
+					<div id="add-course-tab" class="">
+						<div class="">
+							<div class="course__form">
+								<div class="general_info10">
+									<div class="row">
+										<div class="col-md-4 col-lg-3">
+											<div class="mt-30 lbel25">
+												<label>Branch Name*</label>
+											</div>
+											<select class="ui hj145 dropdown cntry152 prompt srch_explore" asp-for="BranchId">
+												<option value="">Select Branch</option>
+												@foreach (var item in ViewBag.Branches)
+												{
+													<option value="@item.BranchId">@item.BranchName</option>
+												}
+											</select>
+										</div>
+										<div class="col-md-4 col-lg-3">
+											<div class="mt-30 lbel25">
+												<label>Employee Role*</label>
+											</div>
+											<select class="ui hj145 dropdown cntry152 prompt srch_explore" asp-for="RoleId">
+												<option value="">Select Role</option>
+												@foreach (var item in ViewBag.Roles)
+												{
+													<option value="@item.RoleId">@item.RoleName</option>
+												}
+											</select>
+										</div>
+
+										<div class="col-md-4 col-lg-3">
+											<div class="ui search focus mt-30 lbel25">
+												<label>Employee Code*</label>
+												<div class="ui left icon input swdh19">
+													<input class="prompt srch_explore" type="text" asp-for="EmployeeCode" placeholder="Employee Code here" maxlength="10">
+												</div>
+												<div class="help-block">(Please make this a maximum of 10 characters and unique.)</div>
+											</div>
+										</div>
+
+										<div class="col-md-4 col-lg-3">
+											<div class="ui search focus mt-30 lbel25">
+												<label>Employee Name*</label>
+												<div class="ui left icon input swdh19">
+													<input class="prompt srch_explore" type="text" asp-for="EmployeeName" placeholder="Employee Name here" maxlength="100" >
+												</div>
+												<div class="help-block">(Please make this a maximum of 100 characters and unique.)</div>
+											</div>
+										</div>
+
+
+										<div class="col-md-4 col-lg-3">
+											<div class="ui search focus mt-30 lbel25">
+												<label>Mobile Number*</label>
+												<div class="ui left icon input swdh19">
+													<input class="prompt srch_explore" type="text" asp-for="MobileNumber" placeholder="Mobile Number here" maxlength="10" >
+												</div>
+												<div class="help-block">(Please make this a maximum of 10 characters and unique.)</div>
+											</div>
+										</div>
+
+
+										<div class="col-md-4 col-lg-3">
+											<div class="ui search focus mt-30 lbel25">
+												<label>Email Address*</label>
+												<div class="ui left icon input swdh19">
+													<input class="prompt srch_explore" type="email" asp-for="EmailAddress" placeholder="Email Address here" maxlength="100" >
+												</div>
+												<div class="help-block">(Please make this a maximum of 100 characters and unique.)</div>
+											</div>
+										</div>
+
+										<div class="col-lg-6">
+											<div class="ui search focus mt-30 lbel25">
+												<label>Password*</label>
+												<div class="ui left icon input swdh19">
+													<input class="prompt srch_explore" type="password" asp-for="Password" placeholder="Password here" maxlength="100" >
+												</div>
+												<div class="help-block">(Please make this a maximum of 100 characters and unique.)</div>
+											</div>
+										</div>
+
+										<div class="cogs-toggle my-3">
+											<label class="switch">
+
+												<input type="checkbox" asp-for="Status"/>
+												<span></span>
+											</label>
+											<label for="Status" class="lbl-quiz">Status</label>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="step-footer step-tab-pager flex content-justify-center" style="margin-bottom:50px; display: flex; justify-content: center; align-items: center;">
+								<button type="submit" class="btn btn-lg btn-default steps_btn">Submit</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+	</form>
+
+
+</div>

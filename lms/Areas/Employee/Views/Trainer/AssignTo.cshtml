@@ -1,0 +1,92 @@
+﻿@model TrainerCourseModuleModel
+
+<div class="row">
+	<div class="card">
+		<div class="card-body" >
+
+			<form method="post" id="formDetails" asp-controller="Trainer" asp-action="AssignTo" asp-area="Employee">
+				<h4>Modules Assign to Trainer</h4>
+				<input type="hidden" name="TrainerId" value="@ViewBag.TrainerId"> <!-- Name attribute added here -->
+
+				<div>
+					<label><strong>Trainer Name:</strong></label>
+					@if (ViewBag.Employee != null)
+					{
+						@ViewBag.Employee.EmployeeName
+					}
+				</div>
+
+				<div>
+					@foreach (var c in ViewBag.CourseModules)
+					{
+						
+						<div class="inline field col-md-2 g-1 m-1">
+							<div class="ui checkbox">
+								<input type="checkbox" class="hidden checkIds" name="modules[]" value="@c.CourseModuleId"/>
+								
+								<label>@c.ModuleName</label>
+							</div>
+
+						</div>
+
+						
+					}
+				</div>
+				<div>
+					<input type="submit" value="SaveChanges" class="main-btn"/>
+
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<div>
+@if (TempData["success"] != null)
+{
+	<div class="alert alert-success mt-2">
+		<p>@TempData["success"]</p>
+	</div>
+}
+</div>
+
+<div>
+	<!-- Display error message if exists -->
+	@if (TempData["error"] != null)
+	{
+		<div class="alert alert-danger mt-2">
+			<p>@TempData["error"]</p>
+		</div>
+	}
+</div>
+
+<div class="row">
+	<div class="card">
+		<div class="card-body">
+			<div>
+				<p><strong>Details of Assign Modules:</strong></p>
+
+				<div>
+					<label><strong>Trainer Name:</strong></label>
+					@ViewBag.Employee.EmployeeName
+
+				</div>
+
+				<div>
+					<strong>Courses Assigned:</strong>
+
+
+					@foreach (var item in ViewBag.CourseList)
+					{
+						<div class="inline field col-md-3">
+							<label>@item.ModuleName</label>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
