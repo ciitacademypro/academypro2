@@ -70,7 +70,14 @@
 										<div class="col-lg-6 col-md-6">
 											<div class="cogs-toggle my-3">
 												<label class="switch">
-												<input type="checkbox" asp-for="Status">
+													@if(Model.StatusLabel == "Active")
+													{
+														<input type="checkbox" asp-for="Status" checked >
+													}
+													else
+													{
+														<input type="checkbox" asp-for="Status" >
+													}
 													<span></span>
 												</label>
 												<label for="Status" class="lbl-quiz">Status</label>

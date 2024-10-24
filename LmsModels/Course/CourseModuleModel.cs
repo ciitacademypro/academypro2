@@ -12,6 +12,8 @@ namespace LmsModels.Course
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int CourseModuleId { get; set; }
 		public short CourseId { get; set; }
+		public short CourseCategoryId { get; set; }
+		public string? CourseCategoryName { get; set; }
 		public string CourseName { get; set; }
 		public string ModuleName { get; set; }
 		public string ModuleDescription { get; set; }

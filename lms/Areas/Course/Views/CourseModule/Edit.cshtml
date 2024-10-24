@@ -12,6 +12,7 @@
 
 	<form method="post" asp-action="edit" asp-controller="courseModule" asp-area="course" id="formCreateCourse">
 		<input type="hidden" asp-for="CourseModuleId">
+		<input type="hidden" id="tempCourseId" value="@Model.CourseId" >
 		<div class="row">
 			<div class="col-12 ">
 				<div class="">
@@ -24,11 +25,16 @@
 											<div class="mt-30 lbel25">
 												<label>Select Course Category*</label>
 											</div>
-											<select class="ui hj145 dropdown cntry152 prompt srch_explore" id="drpCourseCategory">
+											<select class="ui hj145 dropdown cntry152 prompt srch_explore" id="drpCourseCategory" >
 												<option value="">Select Course Category</option>
 												@foreach (var item in ViewBag.CourseCategories)
 												{
-													<option value="@item.CourseCategoryId">@item.CourseCategoryName</option>
+													if(Model.CourseCategoryId == item.CourseCategoryId){
+													<option value="@item.CourseCategoryId" selected>@item.CourseCategoryName</option>
+													}else{
+
+													<option value="@item.CourseCategoryId" >@item.CourseCategoryName</option>
+													}
 												}
 											</select>
 										</div>
@@ -47,7 +53,7 @@
 										<div class="ui search focus mt-30 lbel25">
 											<label>Course Module Name*</label>
 											<div class="ui left icon input swdh19">
-												<input class="prompt srch_explore" type="text" asp-for="ModuleName" placeholder="Course Module Name here" data-purpose="edit-course-module-title" maxlength="60" value="">
+												<input class="prompt srch_explore" type="text" asp-for="ModuleName" value="@Model.ModuleName" placeholder="Course Module Name here"  maxlength="60" >
 											</div>
 											<div class="help-block">(Please make this a maximum of 100 characters and unique.)</div>
 										</div>
@@ -91,6 +97,7 @@
 
 		$(document).ready(()=>{
 			$("#drpCourseCategory").change();
+			
 		})
 
 
@@ -104,7 +111,8 @@
 			let url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/Course/Course/GetIdNameList/${selectedVal}`;
 			$.get(url, (response) => {
 				const options = response.map(v => `<option value="${v.courseId}">${v.courseName}</option>`).join('');
-				$("#CourseId").append(options);
+				$("#CourseId").append(options).val($('#tempCourseId').val()).change();
+
 			}).fail(console.log);
 		})
 

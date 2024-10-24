@@ -86,7 +86,7 @@ namespace lms.Areas.Employee.Controllers
 		public IActionResult AssignTo(int id)
 		{
 			ViewBag.TrainerId = id;
-			ViewBag.CourseModules = _courseModuleService.GetAllCourseModules();
+			ViewBag.CourseModules = _courseModuleService.GetAll();
 			ViewBag.Employee = _employeeService.GetById(id);
 			ViewBag.CourseList=_trainerCourseModuleService.GetByTrainerId(id);
 
@@ -130,7 +130,7 @@ namespace lms.Areas.Employee.Controllers
 				// Reload the data for the view and return the view
 				var trainerId = Convert.ToInt16(Request.Form["TrainerId"]);
 				ViewBag.TrainerId = trainerId;
-				ViewBag.CourseModules = _courseModuleService.GetAllCourseModules();
+				ViewBag.CourseModules = _courseModuleService.GetAll();
 				ViewBag.Employee = _employeeService.GetById(trainerId);
 				ViewBag.CourseList = _trainerCourseModuleService.GetByTrainerId(trainerId);
 

@@ -3,11 +3,6 @@ using LmsModels.Course;
 using LmsServices.Common;
 using LmsServices.Course.Interfaces;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LmsServices.Course.Implementations
 {
@@ -19,7 +14,7 @@ namespace LmsServices.Course.Implementations
 			connString = DbConnect.DefaultConnection;
 		}
 
-		public void CreateCourseModule(CourseModuleModel courseModule)
+		public void Create(CourseModuleModel courseModule)
 		{
 			var parameters = new List<KeyValuePair<string, object>>
 			{
@@ -36,10 +31,10 @@ namespace LmsServices.Course.Implementations
 			QueryService.NonQuery("[sp_CreateUpdateDeleteRestore_CourseModules]", parameters);
 		}
 
-		public void DeleteCourseModule(int id)
+		public void Delete(int id)
 		{
 			var parameters = new List<KeyValuePair<string, object>>
-	{
+			{
 					new("@type", "DELETE"),
 					new("@CourseModuleId", id),
 					new("@CourseId", 0),  
@@ -47,12 +42,12 @@ namespace LmsServices.Course.Implementations
 					new("@ModuleDescription", ""),  
 					new("@ModuleOrder", ""),
 					new("@Status", (object)DBNull.Value),
-	};
+			};
 
 			QueryService.NonQuery("[sp_CreateUpdateDeleteRestore_CourseModules]", parameters);
 		}
 
-		public List<CourseModuleModel> GetAllCourseModules(int CourseModuleId = 0, short CourseId = 0)
+		public List<CourseModuleModel> GetAll(int CourseModuleId = 0, short CourseId = 0)
 		{
 
 			return QueryService.Query(
@@ -64,6 +59,8 @@ namespace LmsServices.Course.Implementations
 						CourseModuleId = Convert.ToInt32(reader["CourseModuleId"]),
 						CourseId = Convert.ToInt16(reader["CourseId"]),
 						CourseName = reader["CourseName"].ToString(),
+						CourseCategoryId = Convert.ToInt16(reader["CourseCategoryId"]),
+						CourseCategoryName = reader["CourseCategoryName"].ToString(),
 						ModuleName = reader["ModuleName"].ToString(),
 						ModuleDescription = reader["ModuleDescription"].ToString(),
 						ModuleOrder = Convert.ToInt16(reader["ModuleOrder"]),
@@ -87,6 +84,8 @@ namespace LmsServices.Course.Implementations
 						CourseModuleId = Convert.ToInt32(reader["CourseModuleId"]),
 						CourseId = Convert.ToInt16(reader["CourseId"]),
 						CourseName = reader["CourseName"].ToString(),
+						CourseCategoryId = Convert.ToInt16(reader["CourseCategoryId"]),
+						CourseCategoryName = reader["CourseCategoryName"].ToString(),
 						ModuleName = reader["ModuleName"].ToString(),
 						ModuleDescription = reader["ModuleDescription"].ToString(),
 						ModuleOrder = Convert.ToInt16(reader["ModuleOrder"]),
@@ -102,9 +101,21 @@ namespace LmsServices.Course.Implementations
 		}
 
 
-		public void RestoreCourseModule(int id)
+		public void Restore(int id)
 		{
-			throw new NotImplementedException();
+			var parameters = new List<KeyValuePair<string, object>>
+			{
+					new("@type", "RESTORE"),
+					new("@CourseModuleId", id),
+					new("@CourseId", 0),  
+					new("@ModuleName",  ""),  
+					new("@ModuleDescription", ""),  
+					new("@ModuleOrder", ""),
+					new("@Status", (object)DBNull.Value),
+			};
+
+			QueryService.NonQuery("[sp_CreateUpdateDeleteRestore_CourseModules]", parameters);
+
 		}
 
 		public void ToggleStatus(int id)
@@ -112,7 +123,7 @@ namespace LmsServices.Course.Implementations
 			throw new NotImplementedException();
 		}
 
-		public void UpdateCourseModule(CourseModuleModel courseModule)
+		public void Update(CourseModuleModel courseModule)
 		{
 			var parameters = new List<KeyValuePair<string, object>>
 				{

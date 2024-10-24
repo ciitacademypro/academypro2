@@ -9,6 +9,7 @@ namespace lms.Areas.Course.Controllers
 	public class CourseModuleController : Controller
 	{
 		ICourseModuleService _courseModuleService;
+		ICourseModuleContentService _contentService;
 		ICourseService _courseService;
 		ICourseCategoryService _courseCategoryService;
 
@@ -16,6 +17,7 @@ namespace lms.Areas.Course.Controllers
         {
 			
 			_courseModuleService = new CourseModuleService();
+			_contentService = new CourseModuleContentService();
 			_courseService = new CourseService();
 			_courseCategoryService = new CourseCategoryService();
 
@@ -23,7 +25,7 @@ namespace lms.Areas.Course.Controllers
 
 		public IActionResult Index()
 		{
-			ViewBag.courseModules = _courseModuleService.GetAllCourseModules(0, 0);
+			ViewBag.courseModules = _courseModuleService.GetAll(0, 0);
 			return View("~/Areas/Course/Views/CourseModule/Index.cshtml");
 		}
 
@@ -34,10 +36,11 @@ namespace lms.Areas.Course.Controllers
             return View("~/Areas/Course/Views/CourseModule/Create.cshtml");
 		}
 
+
 		[HttpPost]
 		public IActionResult Create(CourseModuleModel courseModule)
 		{
-			_courseModuleService.CreateCourseModule(courseModule);
+			_courseModuleService.Create(courseModule);
 
 			TempData["success"] = "Course Module created successfully!";
 			return RedirectToAction("Index");
@@ -47,7 +50,6 @@ namespace lms.Areas.Course.Controllers
 		{
 			
 			var courseModule = _courseModuleService.GetById(id);
-
 		    if (courseModule == null)
 			{
 				TempData["error"] = "Course Module not found!";
@@ -56,7 +58,7 @@ namespace lms.Areas.Course.Controllers
 			ViewBag.Course = _courseService.GetAll();
             ViewBag.CourseCategories = _courseCategoryService.GetAll();
 
-			return View("~/Areas/Course/Views/CourseModule/Edit.cshtml", courseModule);
+			return View( courseModule);
 		}
 
 		[HttpPost]
@@ -72,21 +74,69 @@ namespace lms.Areas.Course.Controllers
 			}
 
 			
-			_courseModuleService.UpdateCourseModule(courseModule);
+			_courseModuleService.Update(courseModule);
 
 			TempData["success"] = "Course Module updated successfully!";
 			return RedirectToAction("Index");
 		}
 
 
+		public IActionResult Contents(int id)
+		{
+           	ViewBag.Id = id; 
+
+			var courseModuleContents = _contentService.GetAll(0, id); // Fetch data
+
+			if (courseModuleContents.Count != 0)
+			{
+				ViewBag.CourseName = courseModuleContents.FirstOrDefault()?.CourseName;
+				ViewBag.ModuleName = courseModuleContents.FirstOrDefault()?.ModuleName;
+			}
+
+			// Assign the entire list to ViewBag.Contents
+			ViewBag.Contents = courseModuleContents;
+
+
+            return View("~/Areas/Course/Views/CourseModuleContent/index.cshtml");
+		}
+
+		[HttpPost]
+		public IActionResult CreateContents(CourseModuleContentModel content)
+		{
+           _contentService.Create(content);
+			TempData["success"] = "Course Module Content added successfully!";
+
+			return RedirectToAction("Contents", new { id = content.CourseModuleId });
+
+		}
+
+
+		[HttpPost]
+		public IActionResult UpdateContents(CourseModuleContentModel content)
+		{
+           _contentService.Update(content);
+			TempData["success"] = "Course Module Content updated successfully!";
+
+			return RedirectToAction("Contents", new { id = content.CourseModuleId });
+		}
 
 		[HttpPost]
 		public IActionResult Delete(int id) 
 		{
-			_courseModuleService.DeleteCourseModule(id);
+			_courseModuleService.Delete(id);
 			TempData["success"] = "Course Module Deleted successfully!";
 			return RedirectToAction("Index");
 		}
+
+		[HttpPost]
+		public IActionResult DeleteContent(int id, int otherId) 
+		{
+			_contentService.Delete(id);
+			TempData["success"] = "Course Module Content Deleted successfully!";
+			return RedirectToAction("contents", new { id = otherId });
+		}
+
+
 
 	}
 }

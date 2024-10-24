@@ -160,7 +160,21 @@ namespace LmsServices.Course.Implementations
 
 		public void Update(CourseModel course)
 		{
-			throw new NotImplementedException();
+			var parameters = new List<KeyValuePair<string, object>>
+			{
+				new("@type", "UPDATE"),
+				new("@CourseId", course.CourseId),
+				new("@CourseCategoryId", course.CourseCategoryId),
+				new("@CourseName", course.CourseName),
+				new("@CourseDescription", course.CourseDescription?? ""),
+				new("@CourseLevel", course.CourseLevel?? (object)DBNull.Value),
+				new("@Status", course.Status),
+
+			};
+
+			QueryService.NonQuery("[sp_CreateUpdateDeleteRestore_Courses]", parameters);
+
+
 		}
 
 		public List<CourseFeeModel> GetCourseFees(int courseId)

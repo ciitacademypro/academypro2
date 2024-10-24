@@ -1,0 +1,274 @@
+﻿@{
+	ViewData["Title"] = "Batches";
+
+	ViewData["AreaName"] = "Batch";
+	ViewData["ControllerName"] = "Batch";
+}
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Create New Batch</h3>
+				</div>
+				<div class="card-body p-3">
+
+						<div class="row">
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Batch Name</label>
+									<input
+										type="text"
+										name=""
+										id=""
+										class="form-control"
+										placeholder=""
+										aria-describedby="helpId"
+									/>
+								</div>
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Course Category</label>
+									<select
+										class="form-select form-select-md"
+										name=""
+										id=""
+									>
+										<option selected>Select Course Category</option>
+										<option value="">New Delhi</option>
+										<option value="">Istanbul</option>
+										<option value="">Jakarta</option>
+									</select>
+								</div>
+								
+
+
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Course Name</label>
+									<select
+										class="form-select form-select-md"
+										name=""
+										id=""
+									>
+										<option selected>Select Course</option>
+										<option value="">New Delhi</option>
+										<option value="">Istanbul</option>
+										<option value="">Jakarta</option>
+									</select>
+								</div>
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Course Module</label>
+									<select
+										class="form-select form-select-md"
+										name=""
+										id=""
+									>
+										<option selected>Select Course Module</option>
+										<option value="">New Delhi</option>
+										<option value="">Istanbul</option>
+										<option value="">Jakarta</option>
+									</select>
+								</div>
+
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Batch Start Date</label>
+									<input
+										type="date"
+										name=""
+										id=""
+										class="form-control"
+										placeholder=""
+										aria-describedby="helpId"
+									/>
+								</div>
+
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Batch End Date</label>
+									<input
+										type="date"
+										name=""
+										id=""
+										class="form-control"
+										placeholder=""
+										aria-describedby="helpId"
+									/>
+								</div>
+
+
+
+						</div>
+
+						<div class="row my-4 py-2" style="background: #e0e0e0;">
+
+
+
+							<div class="row justify-content-center align-items-center g-2 m-2 " >
+								<h4>Select Days</h4>
+								
+								<div class="col">
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											value="Monday"
+											name="BatchDays[]"
+											id="day_Monday"
+											checked
+										/>
+										<label class="form-check-label" for="day_Monday"> Monday </label>
+									</div>
+								</div>
+
+								<div class="col">
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											value="Tuesday"
+											name="BatchDays[]"
+											id="day_Tuesday"
+											checked
+										/>
+										<label class="form-check-label" for="day_Tuesday"> Tuesday </label>
+									</div>
+								</div>
+
+								<div class="col">
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											value="Wednesday"
+											name="BatchDays[]"
+											id="day_Wednesday"
+											checked
+										/>
+										<label class="form-check-label" for="day_Wednesday"> Wednesday </label>
+									</div>
+								</div>
+
+								<div class="col">
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											value="Thursday"
+											name="BatchDays[]"
+											id="day_Thursday"
+											checked
+										/>
+										<label class="form-check-label" for="day_Thursday"> Thursday </label>
+									</div>
+								</div>
+
+								<div class="col">
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											value="Friday"
+											name="BatchDays[]"
+											id="day_Friday"
+											checked
+										/>
+										<label class="form-check-label" for="day_Friday"> Friday </label>
+									</div>
+								</div>
+
+								<div class="col">
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											value="Saturday"
+											name="BatchDays[]"
+											id="day_Saturday"
+										/>
+										<label class="form-check-label" for="day_Saturday"> Saturday </label>
+									</div>
+								</div>
+
+								<div class="col">
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											value="Sunday"
+											name="BatchDays[]"
+											id="day_Sunday"
+										/>
+										<label class="form-check-label" for="day_Sunday"> Sunday </label>
+									</div>
+								</div>
+
+
+
+							</div>
+
+						</div>
+
+
+						<div class="row">
+
+
+
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Trainer / Tutor Name</label>
+									<select
+										class="form-select form-select-md"
+										name=""
+										id=""
+									>
+										<option selected>Select Trainer</option>
+										<option value="">New Delhi</option>
+										<option value="">Istanbul</option>
+										<option value="">Jakarta</option>
+									</select>
+								</div>
+								
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Daily Batch Duration (In Minutes)</label>
+									<input
+										type="number"
+										name=""
+										id=""
+										class="form-control"
+										placeholder="120 Min"
+										aria-describedby="helpId"
+									/>
+								</div>
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Daily Batch Start Time</label>
+									<input
+										type="time"
+										name=""
+										id=""
+										class="form-control"
+										placeholder=""
+										aria-describedby="helpId"
+									/>
+								</div>
+
+								<div class="col-3 mb-3">
+									<label for="" class="form-label">Class Room</label>
+									<select
+										class="form-select form-select-md"
+										name=""
+										id=""
+									>
+										<option selected>Select Class Room</option>
+										<option value="">New Delhi</option>
+										<option value="">Istanbul</option>
+										<option value="">Jakarta</option>
+									</select>
+								</div>
+
+
+						</div>
+
+				</div>
+			</div>
+						
+		</div>
+	</div>
+</div>
