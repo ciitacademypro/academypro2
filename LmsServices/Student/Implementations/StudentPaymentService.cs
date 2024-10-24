@@ -24,7 +24,9 @@ public class StudentPaymentService : IStudentPaymentService
 				new ("@StudentEnrollmentId",payment.StudentEnrollmentId),
 				new ("@InstallmentCount", payment.InstallmentCount),
 				new ("@InstallmentAmount", payment.InstallmentAmount),
-				new ("@InstallmentDate", payment.InstallmentDate)			
+				new ("@InstallmentDate", payment.InstallmentDate),
+				new ("@Status", false),
+							
 			};
 			QueryService.NonQuery("[sp_CreateUpdateDeleteRestore_StudentPayments]", parameters);
 		}
@@ -45,6 +47,8 @@ public class StudentPaymentService : IStudentPaymentService
 				new ("@CustomStatus", 0)
 
 			};
+
+
 			QueryService.NonQuery("[sp_UpdateStudentPayment_StudentPayments]", parameters);
 		}
 

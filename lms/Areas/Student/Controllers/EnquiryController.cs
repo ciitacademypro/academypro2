@@ -83,6 +83,17 @@ namespace lms.Areas.Student.Controllers
 		}
 
 		[HttpPost]
+		public IActionResult UpdateRemark(int EnquiryId, string Remark )
+		{
+			_enquiryService.UpdateRemark(EnquiryId, Remark);
+
+			TempData["success"] = "Enquiry Remark updated successfully!";
+
+			return RedirectToAction("Index");
+		}
+
+
+		[HttpPost]
 		public IActionResult Delete(int id)
 		{
 			_enquiryService.Delete(id);

@@ -26,12 +26,14 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
+			<a class="btn btn-default btn-success mx-1" asp-action="Index" asp-controller="@ViewData["ControllerName"]" asp-area="@ViewData["AreaName"]"  style="float:right; position:relative;"  ><i class="fas fa-home"></i> &nbsp; Course Modules</a>
 			<a class="btn btn-default btn-success" style="float:right; position:relative;" id="btn-toggle-form" ><i class="fas fa-plus-circle"></i> &nbsp; Create New Content</a>
 			<h2 class="st_title"><i class="uil uil-analysis"></i> @ViewData["Title"]</h2>
             <div class="">
                 <nav class="breadcrumb">
-                    <a class="breadcrumb-item" style="font-size: 16px;" href="javascript:;">@ViewBag.CourseName</a>
-                    <a class="breadcrumb-item" style="font-size: 16px;" href="javascript:;">@ViewBag.ModuleName</a>
+                    <a class="breadcrumb-item" style="font-size: 16px;" href="javascript:;">@ViewBag.courseModule.CourseCategoryName</a>
+                    <a class="breadcrumb-item" style="font-size: 16px;" href="javascript:;">@ViewBag.courseModule.CourseName</a>
+                    <a class="breadcrumb-item" style="font-size: 16px;" href="javascript:;">@ViewBag.courseModule.ModuleName</a>
                     @* <span class="breadcrumb-item active" aria-current="page">Active</span> *@
                 </nav>
             </div>

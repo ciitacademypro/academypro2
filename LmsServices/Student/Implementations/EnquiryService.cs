@@ -33,7 +33,9 @@ namespace LmsServices.Student.Implmentations
 				new ("@EnquiryForId", Enquiry.EnquiryForId),
 				new ("@BranchId", Enquiry.BranchId),
 				new ("@Status", Enquiry.Status??"New"),
-				new ("@Remark", Enquiry.Remark)
+				new ("@Remark", Enquiry.Remark),
+				new ("@LastInsertedId", 0)
+				
 			};
 
 			QueryService.NonQuery("[sp_CreateUpdateDeleteRestore_Enquiries]", parameters);
@@ -176,6 +178,17 @@ namespace LmsServices.Student.Implmentations
 			throw new NotImplementedException();
 		}
 
+		public void UpdateRemark(int enquiryId, string remark)
+		{
+			var parameters = new List<KeyValuePair<string, object>>
+			{
+				new ("@EnquiryId", enquiryId),	
+				new ("@Remark", remark)
+			};
+			QueryService.NonQuery("[sp_UpdateRemark_Enquiries]", parameters);
+		}
+
+
 		public void Update(EnquiryModel Enquiry)
 		{
 			var parameters = new List<KeyValuePair<string, object>>
@@ -195,7 +208,8 @@ namespace LmsServices.Student.Implmentations
 				new ("@EnquiryForId", Enquiry.EnquiryForId),
 				new ("@BranchId", Enquiry.BranchId),
 				new ("@Status", Enquiry.Status),
-				new ("@Remark", Enquiry.Remark)
+				new ("@Remark", Enquiry.Remark),
+				new ("@LastInsertedId", 0)
 			};
 
 			QueryService.NonQuery("[sp_CreateUpdateDeleteRestore_Enquiries]", parameters);

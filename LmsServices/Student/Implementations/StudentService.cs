@@ -28,18 +28,18 @@ namespace LmsServices.Student.Implementations
 
             var parameters = new List<KeyValuePair<string, object>>
             {
+
 				new("@Type", "INSERT"),
                 new("@StudentId", 0),
+                new("@Password",password),
                 new("@StudentName",student.StudentName),
                 new("@StudentCode",StudentCode),
                 new("@MobileNumber",student.MobileNumber),
                 new("@EmailAddress",student.EmailAddress),
-                new("@Password",password),
                 new("@ProfilePhoto",@"uploads\students\defaultAvatar.png"),
                 //new("@ProfilePhoto",student.ProfilePhoto),
-                
-                new("@Status",false),
-                new("@LastInsertedId", 0) // Output parameter should be initialized with a value (commonly 0)
+                new("@Status",false)                
+              //  new("@LastInsertedId", 0) // Output parameter should be initialized with a value (commonly 0)
             };
 
            return QueryService.NonQuery("[sp_CreateUpdateDeleteRestore_Students]", parameters, "@LastInsertedId");

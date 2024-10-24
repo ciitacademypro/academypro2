@@ -67,6 +67,7 @@ namespace lms.Areas.Student.Controllers
         [HttpPost]
         public IActionResult Create(StudentEnrollmentModel student)
         {
+            string PayMode =  student.PaymentStatus;
             // Add Studet Enrollment
             student.PaymentStatus = "Paid";
             student.EnrollmentDate = DateOnly.FromDateTime(DateTime.Now);
@@ -94,8 +95,8 @@ namespace lms.Areas.Student.Controllers
                     StudentEnrollmentId = lastStudentEnrollmentId,
                     InstallmentCount = InstallmentNumber,
                     InstallmentAmount = amount,
-                    InstallmentDate = firstInstallmentDate.AddMonths(InstallmentNumber - 1) // Add months based on the installment number
-
+                    InstallmentDate = firstInstallmentDate.AddMonths(InstallmentNumber - 1), // Add months based on the installment number
+                    Status = false
                 };
                 InstallmentNumber++;
 
@@ -104,10 +105,28 @@ namespace lms.Areas.Student.Controllers
 
             // activate student
             _studentService.ToggleStatus(student.StudentId, true);
-
             ViewBag.msg = "Enrollment Added Succeefully";
 
-            return RedirectToAction("Index");
+            
+            // pay registration amount here
+
+                var pay = new PayInstallmentModel{
+                    EnrollmentId = lastStudentEnrollmentId,
+                    AmountPaid = student.PaidAmount,
+                    PayMode = PayMode,
+                    TransactionId = student.Remarks,
+                    Screenshot =  "default.png"
+                };
+
+                _studentPaymentService.PayInstallment(pay);
+
+
+            // registration amound pay end here
+            
+
+
+
+            return RedirectToAction("Index", "Student", new { area = "Student" }); // other redirect srd
 
             //            return View("~/Areas/Student/Views/Enrollment/CreateEnrollment.cshtml");
         }

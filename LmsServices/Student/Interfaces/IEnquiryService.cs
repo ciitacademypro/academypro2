@@ -12,6 +12,7 @@ namespace LmsServices.Student.Interfaces
 	{
 		public void Create(EnquiryModel Enquiry);
 		public void Update(EnquiryModel Enquiry);
+		public void UpdateRemark(int enquiryId, string remark);
 		public void Delete(int id);
 		public void Restore(int id);
 		public void ToggleStatus(int id);

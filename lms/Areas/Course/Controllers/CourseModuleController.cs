@@ -85,16 +85,9 @@ namespace lms.Areas.Course.Controllers
 		{
            	ViewBag.Id = id; 
 
-			var courseModuleContents = _contentService.GetAll(0, id); // Fetch data
+			ViewBag.Contents = _contentService.GetAll(0, id); // Fetch data
 
-			if (courseModuleContents.Count != 0)
-			{
-				ViewBag.CourseName = courseModuleContents.FirstOrDefault()?.CourseName;
-				ViewBag.ModuleName = courseModuleContents.FirstOrDefault()?.ModuleName;
-			}
-
-			// Assign the entire list to ViewBag.Contents
-			ViewBag.Contents = courseModuleContents;
+			ViewBag.courseModule = _courseModuleService.GetById(id);
 
 
             return View("~/Areas/Course/Views/CourseModuleContent/index.cshtml");

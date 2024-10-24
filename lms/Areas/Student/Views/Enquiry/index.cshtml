@@ -218,13 +218,13 @@
 						<button type="button" class="btn btn-outline-success"><i class="uil uil-comment-alt-message"></i> Counciling</button>
 						<button type="button" class="btn btn-outline-success"><i class="uil uil-comment-alt-message"></i> Realtime Project</button>
  *@
-						<form method="post" id="formRemark" asp-area="Student" asp-controller="Lead" asp-action="UpdateRemark">
+						<form method="post" id="formRemark" asp-area="Student" asp-controller="Enquiry" asp-action="UpdateRemark">
 							<div class="my-3 shadow">
-								<textarea class="form-control p-3" style="background-color:#eeeeee" name="Remark" id="remark" rows="5" placeholder="Add Remark Here"></textarea>
+								<label>Remark</label>
+								<textarea class="form-control p-3" style="background-color:#eeeeee" name="Remark" id="lbl_enquiry_remark" rows="5" placeholder="Add Remark Here"></textarea>
 							</div>
 
-
-							<input type="hidden" name="LeadId" id="lead_id" value="" />
+							<input type="hidden" name="EnquiryId" id="txt_enquiry_id2" value="" />
 							<input type="submit" value="Save Remark" class="main-btn" id="btnFormformRemark" />
 						</form>
 					</div>
@@ -239,7 +239,7 @@
 		$('.btn-enquiry-view').click(function (event) {
 
 			let dataAttributes = $(this).data();
-			console.log(dataAttributes);
+			// console.log(dataAttributes);
 
 
 			// Optionally, you can loop through and access individual attributes
@@ -247,6 +247,9 @@
 
 				$('#lbl_enquiry_' + key).text(value);
 				$('#txt_enquiry_' + key).val(value);
+				if(key == 'id'){
+				$('#txt_enquiry_id2').val(value);
+				}
 
 				console.log(key + ' : ' + value);
 			});
@@ -260,6 +263,14 @@
 			$(".card-remark").hide();
 			$(".card-student").show();
 		}
+
+
+		$('#enquiry_view_model').on('hidden.bs.modal', function () {
+			// Your code to handle the modal close event
+			$(".card-remark").show();
+			$(".card-student").hide();
+
+		});
 
 
 		$("#drpCourseCategory").change(() => {

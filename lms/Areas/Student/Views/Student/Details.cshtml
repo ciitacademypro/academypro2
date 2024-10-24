@@ -190,9 +190,6 @@
 					<div class="col-lg-8 col-md-7">
 
 						@if(ViewBag.FirstPendingPayment != null && ViewBag.FirstPendingEnrollmentId != null ){
-
-							@section model{
-
 								<!-- Modal trigger button -->
 								<button
 									type="button"
@@ -202,6 +199,9 @@
 								>
 									Pay Now
 								</button>
+
+							@section model{
+
 
 								<!-- Modal Body -->
 								<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
@@ -293,14 +293,10 @@
 									</div>
 								</div>
 
-								<!-- Optional: Place to the bottom of scripts -->
-								<script>
-									const myModal = new bootstrap.Modal(
-										document.getElementById("modalId"),
-										options,
-									);
-								</script>
 							}
+						}
+						else {
+							@* <p>One or both values are null. FirstPendingPayment: @ViewBag.FirstPendingPayment, FirstPendingEnrollmentId: @ViewBag.FirstPendingEnrollmentId</p> *@
 						}
 
 
@@ -334,20 +330,42 @@
 												double totalAmount = 0;
 												double paidAmount = 0;
 												double remainAmount = 0;
+												double remainAmountRow = 0;
 											}
 											@foreach (var payment in enrollment.Payments)
 											{
 												totalAmount += payment.InstallmentAmount;
 												paidAmount += payment.AmountPaid;
-												remainAmount += payment.InstallmentAmount - payment.AmountPaid;
+												remainAmountRow = payment.InstallmentAmount - payment.AmountPaid;
+												remainAmount += remainAmountRow;
 												<tr>
 													<td>@payment.InstallmentCount</td>
 													<td>@payment.InstallmentAmount.ToString("0.00")</td>
 													<td>@payment.AmountPaid.ToString("0.00")</td>
-													<td>@(payment.InstallmentAmount - payment.AmountPaid) </td>
+													<td>
+														@if(remainAmountRow > 0)
+														{
+															<span class="text-danger">@remainAmountRow.ToString("0.00")</span>
+														}else{
+															<span class="text-success">0</span>
+														}
+													</td>
 													<td>@payment.InstallmentDate.ToString("dd MMM yyyy")</td>
 													<td>
-														@(payment.Status ? "Paid" : (payment.AmountPaid > 0 ? "Partial Paid" : "Unpaid"))</td>
+
+														@if(payment.Status)
+														{
+															<i class="badge bg-success">Paid</i>
+														}else{
+															if(payment.AmountPaid > 0){
+																<i class="badge bg-warning">Partial Paid</i>
+															}
+															else{
+															<i class="badge bg-danger">Unpaid</i>
+
+															}
+														}
+														@* @(payment.Status ? "Paid" : (payment.AmountPaid > 0 ? "Partial Paid" : "Unpaid"))</td> *@
 												</tr>
 											}
 										</tbody>
