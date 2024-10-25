@@ -60,7 +60,7 @@ namespace LmsServices.Employee.Implementations
 			QueryService.NonQuery("[sp_CreateUpdateDeleteRestorePassword_Employees]", parameters);
 		}
 
-		public List<EmployeeModel> GetAll()
+		public List<EmployeeModel> GetAll(int employeeId = 0, int roleId = 0, int branchId = 0)
 		{
 			return QueryService.Query(
 				"sp_GetAll_Employees",
@@ -82,9 +82,9 @@ namespace LmsServices.Employee.Implementations
 						StatusLabel = reader["StatusLabel"].ToString(),
 					};
 				},
-				new SqlParameter("@EmployeeId", 0),
-				new SqlParameter("@BranchId", 0),
-				new SqlParameter("@RoleId", 0)
+				new SqlParameter("@EmployeeId", employeeId),
+				new SqlParameter("@BranchId", branchId),
+				new SqlParameter("@RoleId", roleId)
 			);
 		}
 

@@ -81,6 +81,46 @@ namespace lms.Areas.Course.Controllers
 		}
 
 
+		public IActionResult GetIdNameList(short id)
+		{
+			var modules =  _courseModuleService.GetAll(0, id); // CourseId, CategoryId
+			if (modules == null || !modules.Any())
+			{
+				return Json(new object[] { }); // Return an empty JSON array
+			}
+
+			// Select only the CourseId and CourseName
+			var idNameList = modules.Select(c => new
+			{
+				c.CourseModuleId,
+				c.ModuleName
+			}).ToList();
+			return Json(idNameList);
+
+		}
+
+
+		public IActionResult GetIdNameDurationList(int id)
+		{
+			var Contents = _contentService.GetAll(0,id); 
+			if (Contents == null || !Contents.Any())
+			{
+				return Json(new object[] { }); // Return an empty JSON array
+			}
+
+			// Select only the StateId and StateName
+			var idNameList = Contents.Select(c => new
+			{
+				id = c.CourseModuleContentId,
+				title = c.ContentName,
+				duration = c.DurationInHrs
+			}).ToList();
+			return Json(idNameList);
+		}
+
+
+
+
 		public IActionResult Contents(int id)
 		{
            	ViewBag.Id = id; 

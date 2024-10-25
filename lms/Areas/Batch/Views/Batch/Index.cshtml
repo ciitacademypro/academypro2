@@ -16,7 +16,7 @@
 				<div class="card-body p-3">
 
 						<div class="row">
-								<div class="col-3 mb-3">
+								@* <div class="col-3 mb-3">
 									<label for="" class="form-label">Batch Name</label>
 									<input
 										type="text"
@@ -56,32 +56,7 @@
 										<option value="">Jakarta</option>
 									</select>
 								</div>
-								<div class="col-3 mb-3">
-									<label for="" class="form-label">Course Module</label>
-									<select
-										class="form-select form-select-md"
-										name=""
-										id=""
-									>
-										<option selected>Select Course Module</option>
-										<option value="">New Delhi</option>
-										<option value="">Istanbul</option>
-										<option value="">Jakarta</option>
-									</select>
-								</div>
-
-								<div class="col-3 mb-3">
-									<label for="" class="form-label">Batch Start Date</label>
-									<input
-										type="date"
-										name=""
-										id=""
-										class="form-control"
-										placeholder=""
-										aria-describedby="helpId"
-									/>
-								</div>
-
+								
 								<div class="col-3 mb-3">
 									<label for="" class="form-label">Batch End Date</label>
 									<input
@@ -93,9 +68,94 @@
 										aria-describedby="helpId"
 									/>
 								</div>
+								
+								
+								 *@
 
 
+								<div class="col-3 mb-3">
+									<label for="courseModuleId" class="form-label">Course Module</label>
+									<select
+										class="form-select form-select-md"
+										id="courseModuleId"
+									>
+										<option value="" selected>Select Course Module</option>
 
+										@foreach(var module in ViewBag.CourseModules)
+										{
+											<option value="@module.CourseModuleId">@module.ModuleName</option>
+										}
+									</select>
+								</div>
+
+								<div class="col-3 mb-3">
+									<label for="startDate" class="form-label">Batch Start Date <b ></b></label>
+									<input
+										type="date"
+										id="startDate"
+										class="form-control"
+									/>
+								</div>
+
+								<div class="col-3 mb-3" id="lblEndDate" style="display: none;">
+									<label for="startDate" class="form-label">Batch End Date </label>
+									<input
+										type="date"
+										id="endDate"
+										class="form-control"
+									/>
+								</div>
+
+
+								<div class="col-3 mb-3">
+									<label for="batchDuration" class="form-label">Daily Batch Duration (In Hrs)</label>
+									<input
+										type="number"
+										value="2"
+										id="batchDuration"
+										class="form-control"
+										placeholder="2 Hrs"
+										aria-describedby="helpId"
+									/>
+								</div>
+								<div class="col-3 mb-3">
+									<label for="startTime" class="form-label">Daily Batch Start Time</label>
+									<input
+										type="time"
+										value="09:00"
+										id="startTime"
+										class="form-control"
+									/>
+								</div>
+
+								<div class="col-3 mb-3">
+									<label for="classRoom" class="form-label">Class Room</label>
+									<select
+										class="form-select form-select-md"
+										id="classRoom"
+									>
+										<option >Select Class Room</option>
+										<option value="Online" selected>Online</option>
+										<option value="Hall-1" >Hall - 1</option>
+										<option value="Hall-2" >Hall - 2</option>
+										<option value="Hall-3" >Hall - 3</option>
+									</select>
+								</div>
+
+								<div class="col-3 mb-3">
+									<label for="trainer" class="form-label">Trainer / Tutor Name</label>
+									<select
+										class="form-select form-select-md"
+										id="trainer"
+									>
+									
+										<option value="">Select Trainer</option>
+										@foreach(var trainer in ViewBag.Trainers)
+										{
+											<option value="@trainer.EmployeeId">@trainer.EmployeeName</option>
+										}
+									</select>
+								</div>
 						</div>
 
 						<div class="row my-4 py-2" style="background: #e0e0e0;">
@@ -110,7 +170,7 @@
 										<input
 											class="form-check-input"
 											type="checkbox"
-											value="Monday"
+											value="1"
 											name="BatchDays[]"
 											id="day_Monday"
 											checked
@@ -124,7 +184,7 @@
 										<input
 											class="form-check-input"
 											type="checkbox"
-											value="Tuesday"
+											value="2"
 											name="BatchDays[]"
 											id="day_Tuesday"
 											checked
@@ -138,7 +198,7 @@
 										<input
 											class="form-check-input"
 											type="checkbox"
-											value="Wednesday"
+											value="3"
 											name="BatchDays[]"
 											id="day_Wednesday"
 											checked
@@ -152,7 +212,7 @@
 										<input
 											class="form-check-input"
 											type="checkbox"
-											value="Thursday"
+											value="4"
 											name="BatchDays[]"
 											id="day_Thursday"
 											checked
@@ -166,7 +226,7 @@
 										<input
 											class="form-check-input"
 											type="checkbox"
-											value="Friday"
+											value="5"
 											name="BatchDays[]"
 											id="day_Friday"
 											checked
@@ -180,7 +240,7 @@
 										<input
 											class="form-check-input"
 											type="checkbox"
-											value="Saturday"
+											value="6"
 											name="BatchDays[]"
 											id="day_Saturday"
 										/>
@@ -193,76 +253,37 @@
 										<input
 											class="form-check-input"
 											type="checkbox"
-											value="Sunday"
+											value="0"
 											name="BatchDays[]"
 											id="day_Sunday"
 										/>
 										<label class="form-check-label" for="day_Sunday"> Sunday </label>
 									</div>
 								</div>
-
-
-
 							</div>
 
 						</div>
-
-
 						<div class="row">
+								<div class=" step-footer">
+									<input type="button" onclick="generateSchedule()"  value="Generate Batch Schedule" class="btn btn-outline-danger" />
+								</div>							
+						</div>
 
-
-
-								<div class="col-3 mb-3">
-									<label for="" class="form-label">Trainer / Tutor Name</label>
-									<select
-										class="form-select form-select-md"
-										name=""
-										id=""
-									>
-										<option selected>Select Trainer</option>
-										<option value="">New Delhi</option>
-										<option value="">Istanbul</option>
-										<option value="">Jakarta</option>
-									</select>
-								</div>
-								
-								<div class="col-3 mb-3">
-									<label for="" class="form-label">Daily Batch Duration (In Minutes)</label>
-									<input
-										type="number"
-										name=""
-										id=""
-										class="form-control"
-										placeholder="120 Min"
-										aria-describedby="helpId"
-									/>
-								</div>
-								<div class="col-3 mb-3">
-									<label for="" class="form-label">Daily Batch Start Time</label>
-									<input
-										type="time"
-										name=""
-										id=""
-										class="form-control"
-										placeholder=""
-										aria-describedby="helpId"
-									/>
-								</div>
-
-								<div class="col-3 mb-3">
-									<label for="" class="form-label">Class Room</label>
-									<select
-										class="form-select form-select-md"
-										name=""
-										id=""
-									>
-										<option selected>Select Class Room</option>
-										<option value="">New Delhi</option>
-										<option value="">Istanbul</option>
-										<option value="">Jakarta</option>
-									</select>
-								</div>
-
+						<div class="row mt-4 pt-3" id="section-tblBatchSchedule" style="display:none;">	
+							<h3 id="lblBatchName"></h3>						
+							<table class="table ui celled table-hover">
+							  <thead>
+								<tr>
+									<th>#</th>
+									<th>Date</th>
+									<th>Time</th>
+									<th>Contents</th>
+									<th>Class Room</th>
+									<th>Trainer</th>
+							  </tr></thead>
+							  <tbody id="tblBatchSchedule">
+							  </tbody>
+							</table>
 
 						</div>
 
@@ -272,3 +293,174 @@
 		</div>
 	</div>
 </div>
+
+
+@section Scripts {
+
+	<script>
+
+		function splitContentsByDate(data, start_date, daily_hours, holidays) {
+			let schedule = [];
+			let currentDate = new Date(start_date);
+			let remainingHours = daily_hours;
+			let currentDayContents = [];
+			let currentContentIndex = 0;
+			let contentDurationLeft = 0; // Track remaining content duration if split
+			let partiallyCompletedContentId = null; // Track the content that is split across days
+			let partiallyCompletedContentTitle = null; // Track the content title when split
+
+			// Convert holidays to a Set for quick lookup
+			const holidaySet = new Set(holidays);
+
+			// Get the values of unchecked checkboxes
+			const offDays = $("input[name='BatchDays[]']:checkbox:not(:checked)").map(function() {
+				return $(this).val();
+			}).get();
+
+
+			while (currentContentIndex < data.length || contentDurationLeft > 0) {
+				// Skip weekends and holidays
+				while (holidaySet.has(currentDate.toISOString().split('T')[0]) || offDays.includes(currentDate.getDay().toString())) {
+					currentDate.setDate(currentDate.getDate() + 1);
+				}
+
+				let currentContent = data[currentContentIndex];
+				
+				// If content duration is left from the previous day, use it
+				if (contentDurationLeft === 0) {
+					contentDurationLeft = currentContent.duration;
+					partiallyCompletedContentId = currentContent.id;
+					partiallyCompletedContentTitle = currentContent.title; // Capture the title
+				}
+				
+				// Check if we can fit the current content or its remaining part
+				if (remainingHours >= contentDurationLeft) {
+					// We can fit the full remaining content in the current day
+					if (!currentDayContents.some(content => content.id === partiallyCompletedContentId)) {
+						currentDayContents.push({ id: partiallyCompletedContentId, title: partiallyCompletedContentTitle });
+					}
+					remainingHours -= contentDurationLeft; // Deduct the hours from remaining
+					currentContentIndex++; // Move to the next content
+					contentDurationLeft = 0; // Reset for the next content
+					partiallyCompletedContentId = null; // Reset since this content is fully done
+					partiallyCompletedContentTitle = null; // Reset since title is fully done
+				} else {
+					// If we can't fit the entire content, split it across days
+					if (!currentDayContents.some(content => content.id === partiallyCompletedContentId)) {
+						currentDayContents.push({ id: partiallyCompletedContentId, title: partiallyCompletedContentTitle });
+					}
+					contentDurationLeft -= remainingHours; // Deduct hours used today
+					remainingHours = 0; // No more hours left for today
+				}
+
+				// If the current day is full, move to the next day
+				if (remainingHours === 0 || currentContentIndex === data.length) {
+					schedule.push({
+						date: currentDate.toISOString().split('T')[0],
+						content_ids: currentDayContents.map(content => content.id), // Extract only the ids
+						content_names: currentDayContents.map(content => content.title) // Extract only the titles
+					});
+					currentDate.setDate(currentDate.getDate() + 1);
+					remainingHours = daily_hours; // Reset the remaining hours for the next day
+					currentDayContents = []; // Clear contents for the new day
+				}
+			}
+
+			return schedule;
+		}
+
+			function generateSchedule() {
+
+				const courseModuleId = $('#courseModuleId').val(); 
+				const startDate = $('#startDate').val(); 
+				const batchDuration = $('#batchDuration').val(); 
+				const startTime = $('#startTime').val(); 
+				const classRoom = $('#classRoom').val(); 
+				const trainer = $('#trainer').val(); 
+				let trainerName = $('#trainer').find('option:selected').text();
+
+
+				if(courseModuleId == "" || startDate=="" || batchDuration=="" || startTime=="" || classRoom=="" || trainer ==""){
+					alert("Please fill all the fields");
+					return;
+				}
+
+				// Split start time into hours and minutes, and convert to numbers
+				let [hours, minutes] = startTime.split(':').map(Number);
+
+				// Convert the start time to total minutes and add batchDuration in minutes
+				let totalMinutes = hours * 60 + minutes + batchDuration * 60;
+
+				// Calculate the end hours and minutes
+				let finalHours = Math.floor(totalMinutes / 60) % 24; // Convert back to hours and handle overflow
+				let finalMinutes = totalMinutes % 60; // Remaining minutes after calculating hours
+
+				// Format the end time to HH:MM
+				let endTime = `${finalHours.toString().padStart(2, '0')}:${finalMinutes.toString().padStart(2, '0')}`;
+
+
+				// Create a Date object from the startDate
+				const dateObj = new Date(startDate);
+
+				// Get day, month, and year
+				const day = String(dateObj.getDate()).padStart(2, '0'); // Day with leading zero
+				const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Month with leading zero (getMonth is 0-indexed)
+				const year = String(dateObj.getFullYear()).slice(-2); // Last two digits of year
+
+				// Combine to get the final format
+				const formattedDate = `${day}${month}${year}`;
+				let batchName = `B-${courseModuleId}-${formattedDate}-${hours}${minutes}`;
+
+				$('#lblBatchName').text('#'+batchName);
+
+				// fetch Holidays and Contents data in parallel
+				let holidaysRequest = $.get(`http://localhost:5043/Admin/Holiday/GetDateList`);
+				let dataRequest = $.get(`http://localhost:5043/course/courseModule/GetIdNameDurationList/${courseModuleId}`);
+				
+				// Use Promise.all to wait for both requests to finish
+				Promise.all([holidaysRequest, dataRequest])
+					.then(([holidays, data]) => {
+						let finalSchedule = splitContentsByDate(data, startDate, batchDuration, holidays);
+						let contentHtml = ``;
+						let serialNumber = 1;
+						finalSchedule.forEach(result =>{
+							contentHtml += `
+									<tr>
+									<td>${serialNumber++}</td>
+									<td >${result.date} </td>
+									<td >${startTime} To ${endTime} <span style="float:right;">(${batchDuration} Hrs)</span></td>
+									<td >
+											<ul class="list-group list-group-flush">`;
+											
+											result.content_names.forEach(content =>{
+												contentHtml += `<li class="list-group-item">${content}</li>`;
+											})
+
+									contentHtml += `</ul>
+									</td>
+									<td> ${classRoom} </td>								  
+									<td> ${trainerName} </td>								  
+									</tr>
+							`;							
+						})
+
+							$('#tblBatchSchedule').html(contentHtml);
+	
+							$('#section-tblBatchSchedule').show();
+	
+						console.log(finalSchedule);
+
+						let lastDate = finalSchedule[finalSchedule.length - 1].date;
+						console.log(lastDate); // Output: "2024-11-24"
+
+						$('#lblEndDate').show();
+						$('#endDate').val(lastDate)
+					})
+					.catch(error => {
+						console.error("Failed to fetch required data:", error);
+					});
+			}
+
+
+	</script>
+}

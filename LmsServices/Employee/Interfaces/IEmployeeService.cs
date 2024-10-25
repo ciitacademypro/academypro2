@@ -15,7 +15,7 @@ namespace LmsServices.Employee.Interfaces
 		public void Delete(int id);
 		public void Restore(int id);
 		public void ToggleStatus(int id);
-		public List<EmployeeModel> GetAll();
+		public List<EmployeeModel> GetAll(int employeeId = 0, int roleId = 0, int branchId = 0);		
 		public EmployeeModel GetById(int id);
 		public List<EmployeeModel> GetByBranchId(int branchId);
 		public List<EmployeeModel> GetByRoleId(int roleId);
